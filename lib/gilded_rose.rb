@@ -11,8 +11,6 @@ class GildedRose
       ItemStateHandler.new(item).call
 =begin
       case item.name
-      when Backstage_Pass
-        update_Backstage_Passes(item)
       when Conjured
         update_Conjured_Item(item)
       else

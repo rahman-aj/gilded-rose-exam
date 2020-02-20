@@ -3,6 +3,7 @@ class ItemStateHandler
   
     SULFURAS_ITEMS = ['Sulfuras, Hand of Ragnaros'].freeze
     AGED_BRIE_ITEMS = ['Aged Brie'].freeze
+    BACKSTAGE_PASS_ITEMS = ['Backstage passes to a TAFKAL80ETC concert'].freeze
 
     def initialize(item)
         @item = item
@@ -11,6 +12,7 @@ class ItemStateHandler
     def call
         return if sulfuras_item?
         return aged_item_update if aged_brie_item?
+        return backstage_item_update if backstage_item?
     end
 
     private
@@ -23,6 +25,10 @@ class ItemStateHandler
         AGED_BRIE_ITEMS.include?(item.name)
     end
 
+    def backstage_item?
+        BACKSTAGE_PASS_ITEMS.include?(item.name)
+    end
+
     def add_sub_quality(val)
         return item.quality += val
     end
@@ -33,5 +39,11 @@ class ItemStateHandler
         end
     end
 
+    def backstage_item_update
+        return item.quality = 0 if item.sell_in.zero? || item.sell_in.negative?
+        return add_sub_quality(3) if item.sell_in <= 5
+        return add_sub_quality(2) if item.sell_in <= 10
+        return add_sub_quality(1) 
+    end
 
 end
