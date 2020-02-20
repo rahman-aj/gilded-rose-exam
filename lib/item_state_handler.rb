@@ -1,6 +1,9 @@
 class ItemStateHandler
     attr_accessor :item
   
+    # Made an array for future modifying
+    # like adding items with similar 
+    # calculation method
     SULFURAS_ITEMS = ['Sulfuras, Hand of Ragnaros'].freeze
     AGED_BRIE_ITEMS = ['Aged Brie'].freeze
     BACKSTAGE_PASS_ITEMS = ['Backstage passes to a TAFKAL80ETC concert'].freeze
@@ -15,8 +18,10 @@ class ItemStateHandler
         return aged_item_update if aged_brie_item?
         return backstage_item_update if backstage_item?
         return conjured_item_update if conjured_item?
+        default_item_update
     end
 
+    # Made private for better security
     private
 
     def sulfuras_item?
@@ -60,5 +65,16 @@ class ItemStateHandler
             add_sub_quality(-2)
           end
         end
+    end
+
+    def default_item_update
+        if item.quality.positive?
+          if item.sell_in.negative?
+            add_sub_quality(-2)
+          else
+            add_sub_quality(-1)
+          end
+        end
+        item.sell_in -= 1
     end
 end

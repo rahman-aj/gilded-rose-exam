@@ -4,16 +4,10 @@ class GildedRose
   def initialize(items)
     @items = items
   end
-  require_relative 'functions'
 
   def update_quality
     @items.each do |item|
       ItemStateHandler.new(item).call
-=begin
-      case item.name
-        update_Normal_Item(item)
-      end
-=end
     end 
   end
 end
