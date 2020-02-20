@@ -9,9 +9,8 @@ class GildedRose
   def update_quality
     @items.each do |item|
       ItemStateHandler.new(item).call
+=begin
       case item.name
-      when Aged_Brie
-        update_Aged_Brie(item)
       when Backstage_Pass
         update_Backstage_Passes(item)
       when Conjured
@@ -19,6 +18,7 @@ class GildedRose
       else
         update_Normal_Item(item)
       end
+=end
     end 
   end
 end
