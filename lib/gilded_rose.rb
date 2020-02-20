@@ -11,9 +11,6 @@ class GildedRose
       ItemStateHandler.new(item).call
 =begin
       case item.name
-      when Conjured
-        update_Conjured_Item(item)
-      else
         update_Normal_Item(item)
       end
 =end
