@@ -1,4 +1,5 @@
 class GildedRose
+  require_relative 'item_state_handler'
 
   def initialize(items)
     @items = items
@@ -7,13 +8,12 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
+      ItemStateHandler.new(item).call
       case item.name
       when Aged_Brie
         update_Aged_Brie(item)
       when Backstage_Pass
         update_Backstage_Passes(item)
-      when Sulfuras
-        # do nothing, legendary items cannot be changed
       when Conjured
         update_Conjured_Item(item)
       else
